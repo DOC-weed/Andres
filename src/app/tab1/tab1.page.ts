@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireModule} from '@angular/fire';
 import {LoginceosService} from '../loginceos.service';
@@ -17,23 +17,21 @@ export class Tab1Page {
 
   constructor(private rot: Router,
               private loginservice: LoginceosService,
-              private AFM: AngularFireModule) {
-  }
-
+              private AFM: AngularFireModule) {}
 
   ionViewWillEnter() {
     this.obtenerclientes();
   }
   obtenerclientes() {
+
     this.loginservice.mostrarclientes().then(CObt => {
-      this.cliente = [];
-      /*CObt.forEach((clientes: any) => {
+     this.cliente = [];
+     this.cliente.forEach((clientes: any) => {
         this.cliente.push({
           id: clientes.playload.doc.id,
           data: clientes.playload.doc.data()
         });
-      });*/
-    });
-  }
-
+      });
+      });
+     }
 }

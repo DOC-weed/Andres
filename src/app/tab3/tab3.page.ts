@@ -8,15 +8,12 @@ import { AngularFireModule} from '@angular/fire';
 import {element} from 'protractor';
 import {createInterface} from 'readline';
 
-
-// @ts-ignore
 @Component({
   selector: 'app-tab3',
   templateUrl: 'tab3.page.html',
   styleUrls: ['tab3.page.scss']
 })
 export class Tab3Page {
-
   constructor(public navCtrl: NavController,
               public formbuilder: FormBuilder,
               private authService: AuthService,
@@ -36,10 +33,6 @@ export class Tab3Page {
   chk1 = true;
   chk2 = false;
   cliente;
-
-
-
-
   presentActionSheet(fileLoader) {
     fileLoader.click();
     const that = this;
@@ -147,7 +140,6 @@ export class Tab3Page {
     this.cbgestatus1 = false;
   }
   datos() {
-
     const capturadatos = [];
     capturadatos[0] = (document.getElementById('fileLoader') as HTMLInputElement).value;
     capturadatos[1] = (document.getElementById('nombre') as HTMLInputElement).value;

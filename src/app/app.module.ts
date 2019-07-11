@@ -10,10 +10,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule} from './auth/auth.module';
 import { fireconfig } from '../environments/environment';
-
+import { firebase} from '@firebase/app';
+import '@firebase/firestore';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+
+
+
 
 @NgModule({
   declarations: [AppComponent],
