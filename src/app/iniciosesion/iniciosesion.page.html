@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>iniciosesion</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-icon class="icon" size="large" color="primary" name="contact"></ion-icon>
+    <ion-item>
+     <ion-label position="floating">Correo Electrónico</ion-label>
+     <ion-input name="email" [(ngModel)]="email"  type="text" ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Contraseña</ion-label>
+      <ion-input name="password" [(ngModel)]="password" type="password" ></ion-input>
+    </ion-item>
+  <br>
+  <ion-button expand="block" (click)="login()">Ingresar</ion-button>
+
+</ion-content>

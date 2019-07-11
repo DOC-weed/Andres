@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-img  class="logoceos" src="/assets/img/ceoslogo3.png"></ion-img>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+    <ion-toolbar>
+        <ion-searchbar></ion-searchbar>
+    </ion-toolbar>
+    <p>aver perroo</p>
+      <ion-list>
+          <ion-item *ngFor="let clientes of cliente " >
+              <ion-grid>
+                  <ion-row>
+                      <ion-img class="logo-perfil" src="{{clientes.data.imagen}}" ></ion-img>
+                  </ion-row>
+                  <ion-row>
+                      <p>{{clientes.data.nombre}}</p>
+                  </ion-row>
+                  <ion-row>
+                      <p>Estatus: Inactivo</p>
+                      <ion-checkbox slot="end"  value="yes" color="success" checked="{{clientes.data.activo}}" ></ion-checkbox>
+                      <ion-checkbox slot="end" value="no" color="medium"  checked ="{{clientes.data.inactivo}}"></ion-checkbox>
+                  </ion-row>
+              </ion-grid>
+          </ion-item>
+          </ion-list>
+</ion-content>

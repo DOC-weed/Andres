@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-img class="logoceos" src="assets/img/ceoslogo3.png"></ion-img>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content padding >
+    <ion-toolbar class="titulo">
+        <ion-label class="bg">Ingrese datos del cliente</ion-label>
+    </ion-toolbar>
+
+    <ion-item  class="bg" class="maregenes" padding>
+       <ion-item class="margenes">
+           <span *ngIf="uploadImage != null">
+               <img content="center" id="checkinImage" [src]="uploadImage" class="tamaño" (load)="imageLoaded()" />
+           </span>
+       </ion-item>
+    </ion-item>
+<ion-item>
+     <ion-label class="size">Foto de perfil</ion-label>
+     <input type="file" id="fileLoader" [(ngModel)]="img"  #fileLoader name="files" class="url" title="Load File" hidden />
+      <ion-buttons fill="clear">
+           <button  fill="clear"  (click)="presentActionSheet(fileLoader)">
+                   Selecciona foto
+           </button>
+          <button fill="clear" (click)="removePic()" [disabled]="uploadImage === null">
+             <ion-icon color="danger"  slot="icon-only" size="large" name="trash"></ion-icon>
+          </button>
+      </ion-buttons>
+</ion-item>
+    <ion-item>
+         <ion-label class="bg"  color="primary" class="size"> <p> Nombre del cliente</p></ion-label>
+    </ion-item>
+    <ion-item>
+           <ion-input class="bordess" [(ngModel)]="cbgUsername" type="text" name="nombre" id="nombre" ></ion-input>
+    </ion-item>
+    <ion-list class="bg">
+        <ion-radio-group>
+            <ion-list-header>
+                <ion-label>Estatus del cliente</ion-label>
+            </ion-list-header>
+            <ion-item>
+                <ion-label class="bg">Activo</ion-label>
+                <ion-radio id="activo" color="success" [(ngModel)]="cbgestatus" slot="start" value="Act" checked></ion-radio>
+            </ion-item>
+            <ion-item>
+                <ion-label class="bg">Inactivo</ion-label>
+                <ion-radio  id="inactivo"  color="medium" [(ngModel)]="cbgestatus1" slot="start" value="Inact"></ion-radio>
+            </ion-item>
+        </ion-radio-group>
+    </ion-list>
+    <ion-item >
+        <ion-button  class="m" color="success" (click)="datos()" [disabled]="uploadImage === null">Aceptar</ion-button>
+        <ion-button class="m" color="danger" (click)="cancelar()" [disabled]="uploadImage === null">Cancelar</ion-button>
+    </ion-item>
+</ion-content>
