@@ -32,7 +32,7 @@ export class LoginceosService {
   mostrarclientes() {
     return new Promise((resolve) => {
       this.AFS.collection('123').snapshotChanges()
-      .subscribe(datosObtenidos => {
+     .subscribe(datosObtenidos => {
             console.log(datosObtenidos);
             resolve(datosObtenidos);
           });

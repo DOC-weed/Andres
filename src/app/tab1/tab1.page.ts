@@ -10,7 +10,7 @@ import {forEach} from '@angular-devkit/schematics';
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
-export class Tab1Page {
+export class Tab1Page implements OnInit {
   cliente = [];
 
 
@@ -19,13 +19,12 @@ export class Tab1Page {
               private loginservice: LoginceosService,
               private AFM: AngularFireModule) {}
 
-  ionViewWillEnter() {
+  ngOnInit() {
     this.obtenerclientes();
   }
   obtenerclientes() {
 
-    this.loginservice.mostrarclientes().then(CObt => {
-     this.cliente = [];
+    this.loginservice.mostrarclientes().then(CObd => {
      this.cliente.forEach((clientes: any) => {
         this.cliente.push({
           id: clientes.playload.doc.id,
