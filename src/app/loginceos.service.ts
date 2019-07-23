@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore} from '@angular/fire/firestore';
-import {reject} from 'q';
-
+import {AngularFireDatabase} from '@angular/fire/database';
+import {AngularFireStorage, AngularFireUploadTask} from '@angular/fire/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -10,35 +10,50 @@ import {reject} from 'q';
 export class LoginceosService {
 
   constructor( private AGfauth: AngularFireAuth,
-               public AFS: AngularFirestore) { }
-  loginservice( email: string, password: string) {
+               public AFS: AngularFirestore,
+               private bd: AngularFireDatabase,
+               private afstorage: AngularFireStorage) { }
+
+
+   loginservice( email: string, password: string) {
     return new Promise(( resolve, rejected ) => {
       this.AGfauth.auth.signInWithEmailAndPassword(email, password).then(res => {
         resolve(res);
       }).catch(err => rejected(err));
     } );
   }
-  agregarcliente(cliente) {
-    return new Promise((resolve, rejected) => {
-      this.AFS.collection('123').add({
-        activo: cliente.activo,
-        imagen: cliente.imagen,
-        inactivo: cliente.inactivo,
-        nombre: cliente.nombre
-      }).then(res => {resolve(res);
-      }).catch( err => rejected(err));
-    });
+  agregarcliente(clientes) {
+    return  this.AFS.collection('123').add( clientes);
   }
-  mostrarclientes() {
-    return new Promise((resolve) => {
-      this.AFS.collection('123').snapshotChanges()
-     .subscribe(datosObtenidos => {
-            console.log(datosObtenidos);
-            resolve(datosObtenidos);
-          });
-    });
-  }
-  clientesmostar() {
+  mostrarcliente() {
     return this.AFS.collection('123').snapshotChanges();
   }
+  getfile() {
+    const ref = this.bd.list('123');
+    return ref.snapshotChanges().subscribe(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val()}));
+    });
+  }
+  uploadtoStorage(information): AngularFireUploadTask {
+    const newname = '${new date().getTime()}.txt';
+    return this.afstorage.ref('file/${newname}').putString(information);
+  }
+  storeInfoToDatabase(metainfo) {
+    const tosave = {
+      created: metainfo.timeCreated,
+      url: metainfo.downloadURLs[0],
+      fullPath: metainfo.fullPath,
+      contentType: metainfo.contentType
+    };
+    return this.bd.list('files').push(tosave);
+  }
+
+  deletefile(file) {
+    const key = file.key;
+    const storagePath = file.fullPath;
+    const ref = this.bd.list('file');
+    ref.remove(key);
+    return this.afstorage.ref(storagePath).delete();
+  }
+
 }

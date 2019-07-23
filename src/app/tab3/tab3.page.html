@@ -30,6 +30,10 @@
       </ion-buttons>
 </ion-item>
     <ion-item>
+        <ion-input type="file" id="file-id" (change)="changeListener($event)" [(ngModel)]="baba" ></ion-input>
+        <ion-button (click)="hecho()"></ion-button>
+    </ion-item>
+    <ion-item>
          <ion-label class="bg"  color="primary" class="size"> <p> Nombre del cliente</p></ion-label>
     </ion-item>
     <ion-item>

@@ -9,8 +9,30 @@
         <ion-searchbar></ion-searchbar>
     </ion-toolbar>
     <p>aver perroo</p>
-      <ion-list>
-          <ion-item *ngFor="let clientes of cliente" >
+    <ion-card *ngFor="let element of cl"  type="element">
+  <!-- <span *ngIf="!item.isEdit; else elseBlock"> -->
+      <ion-card-header>
+        <ion-card-title text-center>{{element.clientes.nombre}}</ion-card-title>
+        <ion-card-subtitle>
+            <ion-img class="logo-perfil" src="{{element.clientes.imagen}}" ></ion-img>
+        </ion-card-subtitle>
+      </ion-card-header>
+        <ion-card-content>
+            <ion-list>
+                <ion-item>
+                    <ion-label>Activo</ion-label>
+                     <ion-radio slot="end" color="success"  checked="{{element.clientes.activo}}"></ion-radio>
+                </ion-item>
+                <ion-item>
+                    <ion-label>Inactivo</ion-label>
+                    <ion-radio slot="end" color="medium" checked="{{element.clientes.inactivo}}"></ion-radio>
+                </ion-item>
+       </ion-list> </ion-card-content>
+    <!--</span> -->
+    </ion-card>
+
+    <!--  <ion-list *ngFor="let clientes of cliente" >
+          <ion-item>
               <ion-grid>
                   <ion-row>
                       <ion-img class="logo-perfil" src="{{clientes.cliente.imagen}}" ></ion-img>
@@ -25,5 +47,5 @@
                   </ion-row>
               </ion-grid>
           </ion-item>
-          </ion-list>
+          </ion-list>-->
 </ion-content>

@@ -4,9 +4,10 @@ import {FormBuilder, Validators, FormGroup} from '@angular/forms';
 import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
 import {LoginceosService} from '../loginceos.service';
-import { AngularFireModule} from '@angular/fire';
-import {element} from 'protractor';
-import {createInterface} from 'readline';
+import { AngularFireModule, FirebaseStorage} from '@angular/fire';
+import {storage} from 'firebase';
+import * as firebase from 'firebase';
+
 
 @Component({
   selector: 'app-tab3',
@@ -21,18 +22,22 @@ export class Tab3Page {
               private fire: AngularFireModule,
               private loginservice: LoginceosService
               ) {}
+    private imagePicker: any;
   public;
   processing: boolean;
   uploadImage: string | ArrayBuffer;
-  img = '';
-  cbgUsername = '';
-  cbgestatus;
-  cbgestatus1;
+  img: string;
+  cbgUsername: string;
+  cbgestatus: boolean;
+  cbgestatus1: boolean;
   image1: string;
   name1: string;
   chk1 = true;
   chk2 = false;
-  cliente;
+  clientes = {} ;
+  baba: string;
+  imgs;
+    file: File;
   presentActionSheet(fileLoader) {
     fileLoader.click();
     const that = this;
@@ -139,9 +144,17 @@ export class Tab3Page {
     this.cbgestatus = true;
     this.cbgestatus1 = false;
   }
+    hecho() {
+        this.imgs = this.baba;
+        console.log(this.imgs);
+    }
+    changeListener($event): void {
+        this.file = $event.target.files[0];
+        console.log(this.file);
+    }
   datos() {
     const capturadatos = [];
-    capturadatos[0] = (document.getElementById('fileLoader') as HTMLInputElement).value;
+    capturadatos[0] = (document.getElementById('fileLoader') as HTMLInputElement).files;
     capturadatos[1] = (document.getElementById('nombre') as HTMLInputElement).value;
     capturadatos[2] = (document.getElementById('activo') as HTMLIonRadioElement).checked;
     capturadatos[3] = (document.getElementById('inactivo') as HTMLIonRadioElement).checked;
@@ -149,13 +162,13 @@ export class Tab3Page {
     this.name1 = capturadatos[1];
     this.chk1 = capturadatos[2];
     this.chk2 = capturadatos[3];
-    this.cliente = {
+    this.clientes = {
       imagen: this.image1,
       nombre: this.name1,
       activo : this.chk1,
       inactivo: this.chk2
     };
-    this.loginservice.agregarcliente(this.cliente).then( res => {
+    this.loginservice.agregarcliente(this.clientes).then( res => {
       alert('Cliente agregado');
       this.img = null;
       this.uploadImage = null;
@@ -164,9 +177,8 @@ export class Tab3Page {
       this.cbgestatus1 = false;
     });
 
+
     }
-
-
 
 
 

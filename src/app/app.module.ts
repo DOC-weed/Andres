@@ -12,9 +12,13 @@ import { AuthModule} from './auth/auth.module';
 import { fireconfig } from '../environments/environment';
 import { firebase} from '@firebase/app';
 import '@firebase/firestore';
+import { AngularFireDatabaseModule} from '@angular/fire/database';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import {Crop} from '@ionic-native/crop/ngx';
+import {ImagePicker } from '@ionic-native/image-picker/ngx';
+import {File} from '@ionic-native/file/ngx';
 
 
 
@@ -23,10 +27,14 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, AuthModule, AngularFireModule.initializeApp(fireconfig),
-      AngularFireAuthModule, AngularFirestoreModule],
+      AngularFireAuthModule, AngularFirestoreModule, AngularFireDatabaseModule ],
   providers: [
     StatusBar,
     SplashScreen,
+    ImagePicker,
+    Crop,
+    File,
+
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
