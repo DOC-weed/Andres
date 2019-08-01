@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
   selector: 'app-iniciosesion',
   templateUrl: './iniciosesion.page.html',
   styleUrls: ['./iniciosesion.page.scss'],
+  providers: [LoginceosService],
 })
 export class IniciosesionPage implements OnInit {
   email: string;
@@ -15,7 +16,7 @@ export class IniciosesionPage implements OnInit {
   ngOnInit() {
   }
   login() {
-    this.authservice.loginservice(this.email, this.password).then(res =>{
+    this.authservice.loginservice(this.email, this.password).then(res => {
       this.email = '';
       this.password = '';
       this.router.navigate(['/tabs']);

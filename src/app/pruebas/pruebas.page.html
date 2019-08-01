@@ -1,11 +1,22 @@
 <ion-header>
-  <ion-navbar color="primary">
-    <ion-title>My Files</ion-title>
-  </ion-navbar>
+<ion-toolbar>
+    <ion-title>pruebas</ion-title>
+</ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-button (click)="pickImage()">Selecciona imagen</ion-button>
+  <ion-item>
+    <img src="" />
+  </ion-item>
+  <ion-item>
+    <ion-input type="file">
+      <ion-button>seleccione imagen</ion-button>
+    </ion-input>
+    <ion-button>
+      <ion-icon name="trash" slot="only icon"></ion-icon>
+    </ion-button>
+  </ion-item>
+  <!-- <ion-button (click)="pickImage()">Selecciona imagen</ion-button>
   <h5 *ngIf="croppedImagepath.length">Croped image</h5>
   <p *ngIf="isLoading">Loading...</p>
   <img src="croppedImagepath" />
@@ -33,6 +44,6 @@
     <button ion-fab color="primary" (click)="addFile()">
       <ion-icon name="cloud-upload"></ion-icon>
     </button>
-  </ion-fab>
+  </ion-fab> -->
 
 </ion-content>

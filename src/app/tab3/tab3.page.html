@@ -17,6 +17,16 @@
            </span>
        </ion-item>
     </ion-item>
+    <!-- <ion-item>
+        <ion-row class="center">
+            <script></script>
+            <button ion-button (click)="getPicture(0)">Show Album</button>
+        </ion-row>
+        <ion-card>
+            <img [src]="captureDataURL" *ngIf="captureDataURL"/>
+            <button ion-button (click)="upload()" *ngIf="captureDataURL">Upload to Firebase!</button>
+        </ion-card>
+    </ion-item> -->
 <ion-item>
      <ion-label class="size">Foto de perfil</ion-label>
      <input type="file" id="fileLoader" [(ngModel)]="img"  #fileLoader name="files" class="url" title="Load File" hidden />
@@ -29,9 +39,9 @@
           </button>
       </ion-buttons>
 </ion-item>
-    <ion-item>
-        <ion-input type="file" id="file-id" (change)="changeListener($event)" [(ngModel)]="baba" ></ion-input>
-        <ion-button (click)="hecho()"></ion-button>
+   <ion-item>
+        <ion-input type="file" id="file-id" [(ngModel)]="imageUri" ></ion-input>
+        <ion-button (click)="updateready()">aceptar</ion-button>
     </ion-item>
     <ion-item>
          <ion-label class="bg"  color="primary" class="size"> <p> Nombre del cliente</p></ion-label>

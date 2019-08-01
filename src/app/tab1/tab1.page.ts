@@ -11,6 +11,7 @@ import {AngularFireStorage} from '@angular/fire/storage';
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss'],
+  providers: [LoginceosService, AngularFireStorage],
 })
 export class Tab1Page implements OnInit {
   clientes = [];
@@ -34,10 +35,16 @@ export class Tab1Page implements OnInit {
                 };
             });
             console.log(this.cl);
-        }),
-            // tslint:disable-next-line:no-unused-expression
-            (error) => {
-            console.error(error);
-        };
+        });
     }
+    prueba() {
+        this.rot.navigate(['/pruebas']).then(r =>
+            this.rot.navigate(['/iniciosesion'])
+        );
+    }
+    iniciosesion() {
+      this.rot.navigate(['/iniciosesion']);
+    }
+
 }
+

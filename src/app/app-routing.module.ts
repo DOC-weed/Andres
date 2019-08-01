@@ -10,6 +10,7 @@ const routes: Routes = [
   { path: 'iniciosesion', loadChildren: './iniciosesion/iniciosesion.module#IniciosesionPageModule' },
   { path: 'pruebas', loadChildren: './pruebas/pruebas.module#PruebasPageModule'}
 
+
 ];
 @NgModule({
   imports: [

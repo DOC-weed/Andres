@@ -1,18 +1,25 @@
 import { Component } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { NavController, AlertController } from '@ionic/angular';
 import {FormBuilder, Validators, FormGroup} from '@angular/forms';
 import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
 import {LoginceosService} from '../loginceos.service';
 import { AngularFireModule, FirebaseStorage} from '@angular/fire';
 import {storage} from 'firebase';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
+import {AngularFireStorage} from '@angular/fire/storage';
+import {snapshotChanges} from '@angular/fire/database';
+import {async} from 'rxjs/internal/scheduler/async';
+import {rejects} from 'assert';
+import {Camera, CameraOptions} from '@ionic-native/camera/ngx';
+
 
 
 @Component({
   selector: 'app-tab3',
   templateUrl: 'tab3.page.html',
-  styleUrls: ['tab3.page.scss']
+  styleUrls: ['tab3.page.scss'],
+  providers: [LoginceosService, AngularFireStorage, Camera]
 })
 export class Tab3Page {
   constructor(public navCtrl: NavController,
@@ -20,12 +27,16 @@ export class Tab3Page {
               private authService: AuthService,
               private router: Router,
               private fire: AngularFireModule,
-              private loginservice: LoginceosService
-              ) {}
+              private loginservice: LoginceosService,
+              private alertCtrl: AlertController,
+              private cama: Camera,
+              ) { this.alertCtrl = alertCtrl; }
+              // variables
     private imagePicker: any;
   public;
   processing: boolean;
   uploadImage: string | ArrayBuffer;
+  // mis variables
   img: string;
   cbgUsername: string;
   cbgestatus: boolean;
@@ -35,9 +46,12 @@ export class Tab3Page {
   chk1 = true;
   chk2 = false;
   clientes = {} ;
-  baba: string;
-  imgs;
-    file: File;
+  imageUri: string;
+  captureDataURL: string;
+  // cont= 1;
+  // imgs;
+  private file: HTMLElement;
+  // funciones
   presentActionSheet(fileLoader) {
     fileLoader.click();
     const that = this;
@@ -144,17 +158,19 @@ export class Tab3Page {
     this.cbgestatus = true;
     this.cbgestatus1 = false;
   }
-    hecho() {
-        this.imgs = this.baba;
-        console.log(this.imgs);
+  updateready() {
+    const varia = this.imageUri;
+    const storageREF = firebase.app().storage('gs://ceosclientes.appspot.com/').ref();
+    const lachref = storageREF.child('/imagen').putString(varia, 'base64');
+    console.log('asdfghjklñ');
     }
-    changeListener($event): void {
+    /* changeListener($event): void {
         this.file = $event.target.files[0];
         console.log(this.file);
-    }
+    }*/
   datos() {
     const capturadatos = [];
-    capturadatos[0] = (document.getElementById('fileLoader') as HTMLInputElement).files;
+    capturadatos[0] = (document.getElementById('fileLoader') as HTMLInputElement).value;
     capturadatos[1] = (document.getElementById('nombre') as HTMLInputElement).value;
     capturadatos[2] = (document.getElementById('activo') as HTMLIonRadioElement).checked;
     capturadatos[3] = (document.getElementById('inactivo') as HTMLIonRadioElement).checked;
@@ -162,6 +178,7 @@ export class Tab3Page {
     this.name1 = capturadatos[1];
     this.chk1 = capturadatos[2];
     this.chk2 = capturadatos[3];
+
     this.clientes = {
       imagen: this.image1,
       nombre: this.name1,
@@ -177,12 +194,81 @@ export class Tab3Page {
       this.cbgestatus1 = false;
     });
 
-
     }
+    /* encodeimageuri(imageUri, callback) {
+    const c = document.createElement('canvas');
+    const ctx = c.getContext('2d');
+    const img = new Image();
+    img.onload = function() {
+      const aux: any = this;
+      c.width = aux.width;
+      c.height = aux.height;
+      ctx.drawImage(img, 0, 0);
+      const dataURL = c.toDataURL('image/jpg');
+      callback(dataURL);
+    };
+    img.src = imageUri;
+    }
+   uploadimage2(imageURI) {
+    return new Promise<any>((resolve, rejected) => {
+      const storageRef = firebase.app().storage('gs://ceosclientes.appspot.com/').ref();
+      const imageRef = storageRef.child('imagen/');
+      // tslint:disable-next-line:only-arrow-functions
+      this.encodeimageuri(imageURI, function(image64) {
+        imageRef.putString(image64, 'data_url').then(snapshot => {
+          snapshot.ref.getDownloadURL().then(res => resolve(console.log(res)));
+        }, err => {
+          rejected(console.log(err));
+        });
+      });
+    });
+    } */
+ /* getPicture(sourceType) {
+    const cameraOptions: CameraOptions = {
+      quality: 50,
+      destinationType: this.cama.DestinationType.DATA_URL,
+      encodingType: this.cama.EncodingType.JPEG,
+      mediaType: this.cama.MediaType.PICTURE,
+      sourceType
+    };
 
+    this.cama.getPicture(cameraOptions)
+        .then((captureDataURL) => {
+          this.captureDataURL = 'data:image/jpeg;base64,' + captureDataURL;
+        }, (err) => {
+          console.log(err);
+        });
+  }
 
+  upload() {
+    const storageRef = firebase.storage().ref();
+    // Create a timestamp as filename
+    const filename = Math.floor(Date.now() / 1000);
 
+    // Create a reference to 'images/todays-date.jpg'
+    const imageRef = storageRef.child(`imagen/${filename}.jpg`);
+
+    imageRef.putString(this.captureDataURL, firebase.storage.StringFormat.DATA_URL)
+        .then((snapshot) => {
+          // Do something here when the data is succesfully uploaded!
+          this.showSuccesfulUploadAlert();
+        });
+  }
+  showSuccesfulUploadAlert() {
+    const alert = this.alertCtrl.create( {
+      header: 'Uploaded!',
+      subHeader: 'Picture is uploaded to Firebase',
+      buttons: ['OK']
+    });
+    alert.catch();
+    // clear the previous photo data in the variable
+    this.captureDataURL = '';
+  }
+  */
 }
+
+
+
 
 
 

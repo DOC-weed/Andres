@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore} from '@angular/fire/firestore';
 import {AngularFireDatabase} from '@angular/fire/database';
 import {AngularFireStorage, AngularFireUploadTask} from '@angular/fire/storage';
+import {AngularFireModule} from '@angular/fire';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ export class LoginceosService {
   constructor( private AGfauth: AngularFireAuth,
                public AFS: AngularFirestore,
                private bd: AngularFireDatabase,
-               private afstorage: AngularFireStorage) { }
+               private afstorage: AngularFireStorage,
+               private afm: AngularFireModule) { }
 
 
    loginservice( email: string, password: string) {
